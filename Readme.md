@@ -19,7 +19,7 @@ Grub loader and Shim
 cd boot
 wget https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/os/EFI/BOOT/grubx64.efi
 sudo cp /boot/efi/EFI/fedora/shimx64.efi .
-sudo chown account:group *.efi
+sudo chown $USER: *.efi
 ```
 
 ## Libvirt network
