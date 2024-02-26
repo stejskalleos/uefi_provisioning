@@ -29,9 +29,18 @@
       <range start='2001:db8:dead:beef:fe::1000' end='2001:db8:dead:beef:fe::2000'/>
     </dhcp>
   </ip>
-  <dnsmasq:options>
-    <dnsmasq:option value='dhcp-vendorclass=set:efi-http,HTTPClient:Arch:00016'/>
-    <dnsmasq:option value='dhcp-option-force=tag:efi-http,60,HTTPClient'/>
-    <dnsmasq:option value='dhcp-boot=tag:efi-http,http://192.168.122.1:8000/grubx64.efi'/>
-  </dnsmasq:options>
+<dnsmasq:options>
+  <!-- Set a tag for a specific MAC address -->
+  <dnsmasq:option value='dhcp-host=CC:EE:55:77:00:09,set:host-centos9'/>
+  <dnsmasq:option value='dhcp-host=00:AA:DE:B1:AA:12,set:host-debian12'/>
+
+  <!-- Apply options based on the tag -->
+  <dnsmasq:option value='dhcp-option-force=tag:host-centos9,60,HTTPClient'/>
+  <dnsmasq:option value='dhcp-option-force=tag:host-debian12,60,HTTPClient'/>
+
+  <!-- Serve a specific boot file to the host with the tagged MAC address -->
+  <dnsmasq:option value='dhcp-boot=tag:host-centos9,http://192.168.122.1:8000/boot/centos_9/grubx64.efi'/>
+  <dnsmasq:option value='dhcp-boot=tag:host-debian12,http://192.168.122.1:8000/boot/debian_12/grubx64.efi'/>
+</dnsmasq:options>
+
 </network>
